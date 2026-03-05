@@ -2,6 +2,19 @@ import type { createSQLiteThread } from 'sqlite-wasm-http';
 import type { ResultArray } from 'sqlite-wasm-http/sqlite3-worker1-promiser.js';
 import env from './env';
 
+
+function safeAlert(message: string): void {
+  try {
+    if (typeof alert === 'function') {
+      alert(message);
+    } else {
+      console.error(message);
+    }
+  } catch {
+    console.error(message);
+  }
+}
+
 export const DB_URL = env.VITE_USE_TEST_DB
   ? './data/test_aws_pricing.sqlite3'
   : './data/aws_pricing.sqlite3';
@@ -53,9 +66,9 @@ export class Database {
        });
 
        if (error.message?.includes('SharedArrayBuffer')) {
-         alert('Your browser does not support SharedArrayBuffer required for SQLite WASM. Please use a modern browser with cross-origin isolation enabled.');
+         safeAlert('Your browser does not support SharedArrayBuffer required for SQLite WASM. Please use a modern browser with cross-origin isolation enabled.');
        } else if (error.message?.includes('fetch') || error.message?.includes('network')) {
-         alert('Failed to load database. Please check your internet connection and refresh the page.');
+         safeAlert('Failed to load database. Please check your internet connection and refresh the page.');
        } else {
          alert(`Failed to initialize database: ${error.message || 'Unknown error'}. Please check console for details.`);
        }

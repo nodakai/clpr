@@ -62,6 +62,7 @@ describe('Database', () => {
         maxPageSize: 4096,
         timeout: 10000,
         cacheSize: 8192,
+        sync: true,
       });
       expect(mockCreateSQLiteThread).toHaveBeenCalledWith({
         http: mockHttpBackendInstance,
