@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+data/raw/
+data/*.sqlite3
+!data/aws_pricing.sqlite3
+data/test_*.sqlite3
+htmlcov/
+.coverage
+
+# Node
+node_modules/
+dist/
+coverage/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# SQLite database images
+*.dbi
+
+# Misc
+.svelte-kit/
+
+# Benchmark large files
+data/benchmark_*
+benchmark_results/
+frontend/public/data/benchmark_*
+frontend/public/data/test_*
+
+# WAL and SHM files
+*.sqlite3-shm
+*.sqlite3-wal
+
+# Test results
+frontend/test-results.json

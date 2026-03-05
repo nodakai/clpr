@@ -1,0 +1,143 @@
+[
+  {
+    "product": {
+      "productFamily": "AmazonEC2",
+      "attributes": {
+        "location": "US East (N. Virginia)",
+        "locationType": "AWS Region",
+        "operatingSystem": "Linux",
+        "tenancy": "Shared",
+        "instanceType": "m5.large",
+        "instanceFamily": "General purpose",
+        "vcpu": "2",
+        "memory": "8 GiB",
+        "storage": "EBS only",
+        "storageMedia": "EBS",
+        "networkPerformance": "Up to 10 Gigabit",
+        "physicalProcessor": "Intel Xeon Platinum 8175",
+        "processorFeatures": "Intel AVX, Intel AVX2, Intel Turbo",
+        "burstablePerformance": "Not supported"
+      }
+    },
+    "terms": {
+      "OnDemand": {
+        "m5large-od": {
+          "priceDimensions": {
+            "m5large-od-dim": {
+              "rateCode": "m5large-od-rate",
+              "pricePerUnit": {"USD": "0.096"},
+              "unit": "Hrs",
+              "description": "On-Demand Linux m5.large Instance"
+            }
+          }
+        }
+      }
+    },
+    "sku": "m5large-od"
+  },
+  {
+    "product": {
+      "productFamily": "AmazonEC2",
+      "attributes": {
+        "location": "US East (N. Virginia)",
+        "locationType": "AWS Region",
+        "operatingSystem": "Linux",
+        "tenancy": "Shared",
+        "instanceType": "m5.large",
+        "instanceFamily": "General purpose",
+        "vcpu": "2",
+        "memory": "8 GiB",
+        "storage": "EBS only",
+        "storageMedia": "EBS",
+        "networkPerformance": "Up to 10 Gigabit",
+        "physicalProcessor": "Intel Xeon Platinum 8175",
+        "processorFeatures": "Intel AVX, Intel AVX2, Intel Turbo",
+        "burstablePerformance": "Not supported"
+      }
+    },
+    "terms": {
+      "Reserved": {
+        "m5large-res": {
+          "priceDimensions": {
+            "m5large-res-dim": {
+              "rateCode": "m5large-res-rate",
+              "pricePerUnit": {"USD": "0.03"},
+              "unit": "Hrs",
+              "description": "Reserved Linux m5.large Instance"
+            }
+          }
+        }
+      }
+    },
+    "sku": "m5large-res"
+  },
+  {
+    "product": {
+      "productFamily": "AmazonEC2",
+      "attributes": {
+        "location": "US East (N. Virginia)",
+        "locationType": "AWS Region",
+        "operatingSystem": "Linux",
+        "tenancy": "Shared",
+        "instanceType": "t3.micro",
+        "instanceFamily": "General purpose",
+        "vcpu": "2",
+        "memory": "1 GiB",
+        "storage": "EBS only",
+        "storageMedia": "EBS",
+        "networkPerformance": "Up to 5 Gigabit",
+        "burstablePerformance": "Enabled",
+        "burstCapable": "Yes"
+      }
+    },
+    "terms": {
+      "OnDemand": {
+        "t3micro-od": {
+          "priceDimensions": {
+            "t3micro-od-dim": {
+              "rateCode": "t3micro-od-rate",
+              "pricePerUnit": {"USD": "0.0104"},
+              "unit": "Hrs",
+              "description": "On-Demand Linux t3.micro Instance"
+            }
+          }
+        }
+      }
+    },
+    "sku": "t3micro-od"
+  },
+  {
+    "product": {
+      "productFamily": "AmazonEC2",
+      "attributes": {
+        "location": "US East (N. Virginia)",
+        "locationType": "AWS Region",
+        "operatingSystem": "Windows",
+        "tenancy": "Shared",
+        "instanceType": "c5.xlarge",
+        "instanceFamily": "Compute optimized",
+        "vcpu": "4",
+        "memory": "8 GiB",
+        "storage": "EBS only",
+        "storageMedia": "EBS",
+        "networkPerformance": "Upto 10 Gigabit",
+        "physicalProcessor": "Intel Xeon Platinum 8175M"
+      }
+    },
+    "terms": {
+      "OnDemand": {
+        "c5xlarge-od": {
+          "priceDimensions": {
+            "c5xlarge-od-dim": {
+              "rateCode": "c5xlarge-od-rate",
+              "pricePerUnit": {"USD": "0.17"},
+              "unit": "Hrs",
+              "description": "On-Demand Windows c5.xlarge Instance"
+            }
+          }
+        }
+      }
+    },
+    "sku": "c5xlarge-od"
+  }
+]

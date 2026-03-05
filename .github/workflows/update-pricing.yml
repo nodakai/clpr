@@ -1,0 +1,39 @@
+name: Update Pricing Data
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly Sunday midnight
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: pipeline/requirements.txt
+      - name: Install dependencies
+        run: |
+          cd pipeline
+          pip install -r requirements.txt
+      - name: Generate database
+        run: |
+          cd pipeline
+          python -m pipeline download
+          python -m pipeline normalize
+          python -m pipeline generate
+      - name: Check size
+        run: |
+          ls -lh data/aws_pricing.sqlite3
+          python -c "import sqlite3; c=sqlite3.connect('data/aws_pricing.sqlite3'); assert c.execute('SELECT COUNT(*) FROM prices').fetchone()[0] > 1000"
+      - name: Commit and push
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add data/aws_pricing.sqlite3
+          git commit -m "Update pricing data $(date +%Y-%m-%d)" || echo "No changes"
+          git push
