@@ -3,7 +3,11 @@ import react from '@vitejs/plugin-react';
 import topLevelAwait from 'vite-plugin-top-level-await';
 
 export default defineConfig({
+  base: '/clpr/',
   plugins: [react()],
+  optimizeDeps: {
+    exclude: ['sqlite-wasm-http'],
+  },
   worker: {
     format: 'es',
     plugins: () => [topLevelAwait()],

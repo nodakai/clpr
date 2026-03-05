@@ -3,13 +3,14 @@ import type { ResultArray } from 'sqlite-wasm-http/sqlite3-worker1-promiser.js';
 import env from './env';
 
 export const DB_URL = env.VITE_USE_TEST_DB
-  ? '/data/test_aws_pricing.sqlite3'
-  : '/data/aws_pricing.sqlite3';
+  ? './data/test_aws_pricing.sqlite3'
+  : './data/aws_pricing.sqlite3';
 
 export const HTTP_BACKEND_CONFIG = {
   maxPageSize: 4096,
   timeout: 10000,
-  cacheSize: 8192, // 8 MB cache
+  cacheSize: 8192,
+    sync: true, // 8 MB cache
 };
 
 export interface QueryResult {
@@ -42,19 +43,24 @@ export class Database {
       if (env.DEV) {
         console.log('Database opened');
       }
-    } catch (error: any) {
-      if (error.message?.includes('SharedArrayBuffer')) {
-        alert('Your browser does not support SharedArrayBuffer required for SQLite WASM. Please use a modern browser with cross-origin isolation enabled.');
-      } else if (error.message?.includes('fetch') || error.message?.includes('network')) {
-        alert('Failed to load database. Please check your internet connection and refresh the page.');
-      } else {
-        if (env.DEV) {
-          console.error('Database initialization failed:', error);
-        }
-        alert('Failed to initialize database. Please try again later.');
-      }
-      throw error;
-    }
+     } catch (error: any) {
+       // Log detailed error to console regardless of environment
+       console.error('Database initialization failed:', error);
+       console.error('Error details:', {
+         message: error.message,
+         stack: error.stack,
+         name: error.name
+       });
+
+       if (error.message?.includes('SharedArrayBuffer')) {
+         alert('Your browser does not support SharedArrayBuffer required for SQLite WASM. Please use a modern browser with cross-origin isolation enabled.');
+       } else if (error.message?.includes('fetch') || error.message?.includes('network')) {
+         alert('Failed to load database. Please check your internet connection and refresh the page.');
+       } else {
+         alert(`Failed to initialize database: ${error.message || 'Unknown error'}. Please check console for details.`);
+       }
+       throw error;
+     }
   }
 
   async query(sql: string, params: any[] = []): Promise<Record<string, any>[]> {
