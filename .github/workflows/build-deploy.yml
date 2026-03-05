@@ -6,16 +6,13 @@ on:
   pull_request:
     branches: [main]
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -28,10 +25,14 @@ jobs:
         run: cd frontend && npm test
       - name: Build
         run: cd frontend && npm run build
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          path: frontend/dist
       - name: Deploy to GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: actions/deploy-pages@v2
+        run: |
+          cd frontend
+          # Create a fresh gh-pages branch from the build output
+          git --work-tree=. checkout -B gh-pages
+          git --work-tree=. add -f dist -A
+          git --work-tree=. commit -m "Deploy to GitHub Pages: ${GITHUB_SHA}" --allow-empty
+          git push -f origin gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
