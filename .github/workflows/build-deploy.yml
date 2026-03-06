@@ -29,7 +29,8 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           cd frontend
-          # Create a fresh gh-pages branch from the build output
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git --work-tree=. checkout -B gh-pages
           git --work-tree=. add -f dist -A
           git --work-tree=. commit -m "Deploy to GitHub Pages: ${GITHUB_SHA}" --allow-empty
