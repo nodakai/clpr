@@ -103,6 +103,7 @@ def create_tables(conn: sqlite3.Connection) -> None:
     Args:
         conn: SQLite database connection.
     """
+    conn.execute("DROP TABLE IF EXISTS prices")
     conn.execute(CREATE_TABLE_SQL)
     conn.commit()
 
