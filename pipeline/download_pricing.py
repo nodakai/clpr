@@ -36,10 +36,14 @@ RAW_DATA_DIR = _data_dir() / "raw"
 
 def create_pricing_client():
     """Create boto3 pricing client with retry configuration."""
+    import botocore.config as bc_config
+
     config = Config(
         region_name="us-east-1", retries={"max_attempts": 5, "mode": "adaptive"}
     )
-    return boto3.client("pricing", config=config)
+    if os.environ.get("AWS_UNSIGNED", ""):
+        config = config.merge(Config(signature_version=botocore.UNSIGNED))
+    return boto3.client("pricing", config=config, endpoint_url="https://pricing.us-east-1.amazonaws.com")
 
 
 def download_service_pricing(client, service_name, filters=None):
