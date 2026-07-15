@@ -8,6 +8,8 @@ from pathlib import Path
 
 import click
 
+from pipeline import _data_dir
+
 
 def format_size(bytes_size):
     """Convert bytes to human-readable format."""
@@ -19,7 +21,7 @@ def format_size(bytes_size):
 
 
 def validate_database(
-    db_path="data/aws_pricing.sqlite3", min_size_bytes=100 * 1024 * 1024
+    db_path=str(_data_dir() / "aws_pricing.sqlite3"), min_size_bytes=100 * 1024 * 1024
 ):
     """Run comprehensive validation checks on the database.
 
@@ -300,7 +302,7 @@ def validate_database(
 
 @click.command()
 @click.option(
-    "--db-path", default="data/aws_pricing.sqlite3", help="Path to database file"
+    "--db-path", default=str(_data_dir() / "aws_pricing.sqlite3"), help="Path to database file"
 )
 @click.option(
     "--min-size",

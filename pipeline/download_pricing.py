@@ -9,6 +9,8 @@ from botocore.config import Config
 from tqdm import tqdm
 from pathlib import Path
 
+from pipeline import _data_dir
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -29,8 +31,7 @@ TARGET_SERVICES = [
 ]
 
 # Output directory for raw JSON files
-RAW_DATA_DIR = Path("data/raw")
-RAW_DATA_DIR.mkdir(parents=True, exist_ok=True)
+RAW_DATA_DIR = _data_dir() / "raw"
 
 
 def create_pricing_client():
@@ -138,6 +139,9 @@ def download_ec2_us_east_1_only():
 def download_all():
     """Download pricing data for all target services."""
     logger.info("Starting AWS pricing data download")
+
+    # Ensure output directory exists
+    RAW_DATA_DIR.mkdir(parents=True, exist_ok=True)
 
     # Create the client
     client = create_pricing_client()

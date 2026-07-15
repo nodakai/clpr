@@ -22,7 +22,6 @@ jobs:
           pip install -r requirements.txt
       - name: Generate database
         run: |
-          cd pipeline
           python -m pipeline download
           python -m pipeline normalize
           python -m pipeline generate

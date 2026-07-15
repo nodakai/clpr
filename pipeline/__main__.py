@@ -5,7 +5,7 @@ import logging
 import sys
 import traceback
 
-# Import pipeline functions
+from pipeline import _data_dir
 from .download_pricing import download_all
 from .normalize import normalize_all
 from .generate_db import generate_database
@@ -43,7 +43,7 @@ def normalize():
     """Normalize raw data"""
     try:
         click.echo("Normalizing...")
-        normalize_all("data/aws_pricing.sqlite3")
+        normalize_all(str(_data_dir() / "aws_pricing.sqlite3"))
         click.echo("Normalization complete!")
     except Exception as e:
         click.echo(f"Normalization failed: {e}", err=True)
@@ -53,7 +53,7 @@ def normalize():
 
 @cli.command()
 @click.option(
-    "--output", "-o", default="data/aws_pricing.sqlite3", help="Output database path"
+    "--output", "-o", default=str(_data_dir() / "aws_pricing.sqlite3"), help="Output database path"
 )
 def generate(output):
     """Generate SQLite database"""
@@ -72,11 +72,12 @@ def all():
     """Run full pipeline"""
     try:
         click.echo("Starting full pipeline...")
+        db_path = str(_data_dir() / "aws_pricing.sqlite3")
         download_all()
         click.echo("Download complete!")
-        normalize_all("data/aws_pricing.sqlite3")
+        normalize_all(db_path)
         click.echo("Normalization complete!")
-        generate_database("data/aws_pricing.sqlite3")
+        generate_database(db_path)
         click.echo("Database generated!")
     except Exception as e:
         click.echo(f"Pipeline failed: {e}", err=True)

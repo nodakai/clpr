@@ -37,6 +37,7 @@ Thumbs.db
 
 # Misc
 .svelte-kit/
+build/
 
 # Benchmark large files
 data/benchmark_*

@@ -10,6 +10,7 @@ import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Iterator
 from pipeline.schema import PriceRow
+from pipeline import _data_dir
 
 logger = logging.getLogger(__name__)
 
@@ -384,7 +385,7 @@ def normalize_all(output_path: str | Path) -> None:
         initialize_database(conn)
 
         # Process each raw JSON file
-        raw_dir = Path("data/raw")
+        raw_dir = _data_dir() / "raw"
         total_rows_inserted = 0
 
         for raw_data in read_raw_json_files(raw_dir):

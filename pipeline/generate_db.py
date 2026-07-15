@@ -10,6 +10,7 @@ import sqlite3
 import sys
 from pathlib import Path
 
+from pipeline import _data_dir
 from pipeline.schema import initialize_database, PriceRow
 from pipeline.normalize import normalize_all
 
@@ -17,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 def generate_database(
-    output_path: str | Path = "data/aws_pricing.sqlite3",
+    output_path: str | Path = str(_data_dir() / "aws_pricing.sqlite3"),
     max_size_bytes: int = 500 * 1024 * 1024,
     min_rows: int = 1000,
 ) -> None:

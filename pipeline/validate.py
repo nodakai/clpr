@@ -6,9 +6,11 @@ import sqlite3
 import sys
 from pathlib import Path
 
+from pipeline import _data_dir
+
 
 def quick_validate(
-    db_path="data/aws_pricing.sqlite3", min_size_bytes=50 * 1024 * 1024, min_rows=1000
+    db_path=str(_data_dir() / "aws_pricing.sqlite3"), min_size_bytes=50 * 1024 * 1024, min_rows=1000
 ):
     """Run quick validation checks suitable for CI.
 
